@@ -1,10 +1,20 @@
+import { randomUUID } from 'crypto';
+
 import rng from './rng.js';
 import stringify from './stringify.js';
+
+const random = randomUUID
+  ? function () {
+      const hexString = randomUUID().replaceAll('-', '');
+
+      return Uint8Array.from(Buffer.from(hexString, 'hex'));
+    }
+  : rng;
 
 function v4(options, buf, offset) {
   options = options || {};
 
-  const rnds = options.random || (options.rng || rng)();
+  const rnds = options.random || (options.rng || random)();
 
   // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
   rnds[6] = (rnds[6] & 0x0f) | 0x40;
