@@ -7,3 +7,4 @@ export { default as version } from './version.js';
 export { default as validate } from './validate.js';
 export { default as stringify } from './stringify.js';
 export { default as parse } from './parse.js';
+export { default as regex } from './regex.js';
